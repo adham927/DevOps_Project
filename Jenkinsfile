@@ -13,13 +13,7 @@ pipeline {
       steps{
          sh '''
          aws eks --region eu-north-1 update-kubeconfig --name devops-alfnar-k8s
-         NS=$(kubectl get namespace ${K8S_NAMESPACE} --ignore-not-found);
-         if [[ "$NS" ]]; then
-            echo "Skipping creation of namespace ${K8S_NAMESPACE} - already exists";
-         else
-            echo "Creating namespace ${K8S_NAMESPACE};
-            kubectl create namespace ${K8S_NAMESPACE}
-         fi;
+         kubectl create namespace ${K8S_NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
          '''
       }
     }
