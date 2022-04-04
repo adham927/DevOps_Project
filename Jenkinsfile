@@ -12,6 +12,7 @@ pipeline {
     stage('Creating NAMESPACE'){
       steps{
          sh '''
+         aws eks --region eu-north-1 update-kubeconfig --name devops-alfnar-k8s
          kubectl create namespace ${K8S_NAMESPACE}
          '''
       }
