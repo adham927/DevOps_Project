@@ -2,12 +2,21 @@ pipeline {
   agent any
 
   environment {
-    REGISTRY_URL = ''
-    ECR_REGION = ''
-    K8S_NAMESPACE = ''
+    REGISTRY_URL = '352708296901.dkr.ecr.us-west-2.amazonaws.com/web_server_adham'
+    ECR_REGION = 'us-west-2'
+    K8S_NAMESPACE = 'ADHAM_NAMESPACE'
   }
 
   stages {
+
+    stage('Creating NAMESPACE'){
+      steps{
+         sh '''
+         kubectl create namespace ${K8S_NAMESPACE}
+         '''
+      }
+    }
+
     stage('MNIST Web Server - build'){
       when { branch "master" }
       steps {
