@@ -13,6 +13,7 @@ pipeline {
       steps{
          sh '''
          aws eks --region eu-north-1 update-kubeconfig --name devops-alfnar-k8s
+         kubectl get namespace | grep -q "^$K8S_NAMESPACE " || kubectl create namespace $K8S_NAMESPACE
          kubectl create namespace ${K8S_NAMESPACE}
          '''
       }
@@ -64,7 +65,7 @@ pipeline {
             sed -i "s/{{IMG_NAME}}/$IMG_NAME/g" mnist-predictor.yaml
 
             # get kubeconfig creds
-            aws eks --region eu-north-1 update-kubeconfig --name devops-apr21-k8s
+            aws eks --region eu-north-1 update-kubeconfig --name devops-alfnar-k8s
 
             # apply to your namespace
             kubectl apply -f mnist-predictor.yaml -n $K8S_NAMESPACE
