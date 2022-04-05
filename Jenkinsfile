@@ -24,12 +24,12 @@ pipeline {
       when { branch "master" }
       steps {
           sh '''
-          IMAGE_WEB="mnist-webserver:0.0.${BUILD_NUMBER}"
+          image_web="mnist-webserver:0.0.${BUILD_NUMBER}"
           cd webserver
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
-          docker build -t ${IMAGE-WEB} .
-          docker tag ${IMAGE_WEB} ${REGISTRY_URL}/${IMAGE_WEB}
-          docker push ${REGISTRY_URL}/${IMAGE_WEB}
+          docker build -t ${image_web} .
+          docker tag ${image_web} ${REGISTRY_URL}/${image_web}
+          docker push ${REGISTRY_URL}/${image_web}
           '''
       }
     }
