@@ -42,7 +42,7 @@ pipeline {
             img_p_name=mnist-predictor:0.0.${BUILD_NUMBER}
 
             # replace registry url and image name placeholders in yaml
-            sed -i "s/{{REGISTRY_URL}}/$R_URL/g" mnist-predictor.yaml
+            sed -i "s/{{REGISTRY_URL}}/$REGISTRY_URL/g" mnist-predictor.yaml
             sed -i  "s/{{K8S_NAMESPACE}}/$K8S_NAMESPACE/g" mnist-predictor.yaml
             sed -i  "s/{{IMG_NAME}}/$img_p_name/g" mnist-predictor.yaml
 
