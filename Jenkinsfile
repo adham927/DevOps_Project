@@ -5,6 +5,9 @@ pipeline {
     REGISTRY_URL = '352708296901.dkr.ecr.us-west-2.amazonaws.com'
     ECR_REGION = 'us-west-2'
     K8S_NAMESPACE = 'adham-namespace'
+    K8S_CLUSTER_NAME = 'devops-alfnar-k8s'
+    K8S_CLUSTER_REGION = 'eu-north-1'
+    IMAGE-WEB="mnist-webserver:0.0.${BUILD_NUMBER}"
   }
 
   stages {
@@ -12,7 +15,7 @@ pipeline {
     stage('Creating NAMESPACE'){
       steps{
          sh '''
-         aws eks --region eu-north-1 update-kubeconfig --name devops-alfnar-k8s
+         aws eks --region ${K8S_CLUSTER_REGION} update-kubeconfig --name ${K8S_CLUSTER_NAME}
          kubectl create namespace ${K8S_NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
          '''
       }
@@ -23,7 +26,6 @@ pipeline {
       steps {
           sh '''
           cd webserver
-          IMAGE-WEB="mnist-webserver:0.0.${BUILD_NUMBER}"
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
           docker build -t ${IMAGE-WEB} .
           docker tag ${IMAGE-WEB} ${REGISTRY_URL}/${IMAGE-WEB}
@@ -69,7 +71,7 @@ pipeline {
             sed -i "s/{{IMG_NAME}}/$IMG_NAME/g" mnist-predictor.yaml
 
             # get kubeconfig creds
-            aws eks --region eu-north-1 update-kubeconfig --name devops-alfnar-k8s
+            aws eks --region ${K8S_CLUSTER_REGION} update-kubeconfig --name ${K8S_CLUSTER_NAME}
 
             # apply to your namespace
             kubectl apply -f mnist-predictor.yaml -n $K8S_NAMESPACE
