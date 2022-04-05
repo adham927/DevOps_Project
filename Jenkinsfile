@@ -22,7 +22,7 @@ pipeline {
       when { branch "master" }
       steps {
           sh '''
-          echo building
+
           '''
       }
     }
@@ -31,7 +31,7 @@ pipeline {
         when { branch "master" }
         steps {
             sh '''
-            echo deploying
+
             '''
         }
     }
@@ -47,7 +47,6 @@ pipeline {
             docker build -t ${IMAGE} .
             docker tag ${IMAGE} ${REGISTRY_URL}/${IMAGE}
             docker push ${REGISTRY_URL}/${IMAGE}
-            set +e
             '''
         }
     }
