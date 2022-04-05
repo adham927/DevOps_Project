@@ -63,7 +63,7 @@ pipeline {
             cd ml_model
             aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
             docker build -t ${image} .
-            docker tag ${IMAGE} ${REGISTRY_URL}/${image}
+            docker tag ${image} ${REGISTRY_URL}/${image}
             docker push ${REGISTRY_URL}/${image}
             '''
         }
