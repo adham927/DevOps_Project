@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mnist-predictor
+  name: mnist-webserver
   namespace: {{K8S_NAMESPACE}}
   labels:
-    app: mnist-predictor
+    app: mnist-webserver
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mnist-predictor
+      app: mnist-webserver
   template:
     metadata:
       labels:
-        app: mnist-predictor
+        app: mnist-webserver
     spec:
       terminationGracePeriodSeconds: 30
       containers:
-        - name:  mnist-predictor
+        - name:  mnist-webserver
           image: {{REGISTRY_URL}}/{{IMG_NAME}}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mnist-predictor-service
+  name: mnist-webserver-service
 spec:
   selector:
-    app: mnist-predictor
+    app: mnist-webserver
   ports:
     - port: 8080
       targetPort: 8081
