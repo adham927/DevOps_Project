@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    REGISTRY_URL = '352708296901.dkr.ecr.us-west-2.amazonaws.com/web_server_adham'
+    REGISTRY_URL = '352708296901.dkr.ecr.us-west-2.amazonaws.com'
     ECR_REGION = 'us-west-2'
     K8S_NAMESPACE = 'adham-namespace'
   }
