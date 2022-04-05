@@ -39,7 +39,7 @@ pipeline {
         steps {
             sh '''
             cd webserver
-            image_web = mnist-webserver:0.0.${BUILD_NUMBER}
+            image_web = "mnist-webserver:0.0.${BUILD_NUMBER}"
 
             # replace registry url and image name placeholders in yaml
             sed -i "s/{{REGISTRY_URL}}/$REGISTRY_URL/g" mnist-predictor.yaml
