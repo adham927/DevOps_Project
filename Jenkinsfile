@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    REGISTRY_URL = '352708296901.dkr.ecr.us-west-2.amazonaws.com/webserver_mnist'
+    REGISTRY_URL = '352708296901.dkr.ecr.us-west-2.amazonaws.com'
     ECR_REGION = 'us-west-2'
     K8S_NAMESPACE = 'adham-namespace'
     K8S_CLUSTER_NAME = 'devops-alfnar-k8s'
