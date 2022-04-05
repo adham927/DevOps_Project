@@ -28,8 +28,8 @@ pipeline {
           cd webserver
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
           docker build -t ${IMAGE-WEB} .
-          docker tag ${IMAGE-WEB} ${REGISTRY_URL}/${IMAGE-WEB}
-          docker push ${REGISTRY_URL}/${IMAGE-WEB}
+          docker tag ${IMAGE_WEB} ${REGISTRY_URL}/${IMAGE_WEB}
+          docker push ${REGISTRY_URL}/${IMAGE_WEB}
           '''
       }
     }
