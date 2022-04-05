@@ -74,12 +74,12 @@ pipeline {
         steps {
             sh '''
             cd infra/k8s
-            IMGNAME=mnist-predictor:0.0.${BUILD_NUMBER}
-            R_URL="352708296901.dkr.ecr.us-west-2.amazonaws.com/mnist-predictor"
+            img_p_name=mnist-predictor:0.0.${BUILD_NUMBER}
+
             # replace registry url and image name placeholders in yaml
-            sed  "s/{{REGISTRY_URL}}/$R_URL/g" mnist-predictor.yaml
+            sed  "s/{{REGISTRY_URL}}/$REGISTRY_URL/g" mnist-predictor.yaml
             sed  "s/{{K8S_NAMESPACE}}/$K8S_NAMESPACE/g" mnist-predictor.yaml
-            sed  "s/{{IMG_NAME}}/$IMGNAME/g" mnist-predictor.yaml
+            sed  "s/{{IMG_NAME}}/$img_p_name/g" mnist-predictor.yaml
 
             # get kubeconfig creds
             aws eks --region ${K8S_CLUSTER_REGION} update-kubeconfig --name ${K8S_CLUSTER_NAME}
