@@ -7,7 +7,6 @@ pipeline {
     K8S_NAMESPACE = 'adham-namespace'
     K8S_CLUSTER_NAME = 'devops-alfnar-k8s'
     K8S_CLUSTER_REGION = 'eu-north-1'
-    IMAGE-WEB="mnist-webserver:0.0.${BUILD_NUMBER}"
   }
 
   stages {
@@ -25,6 +24,7 @@ pipeline {
       when { branch "master" }
       steps {
           sh '''
+          IMAGE_WEB="mnist-webserver:0.0.${BUILD_NUMBER}"
           cd webserver
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
           docker build -t ${IMAGE-WEB} .
