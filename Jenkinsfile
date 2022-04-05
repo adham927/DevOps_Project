@@ -59,12 +59,12 @@ pipeline {
         when { branch "master" }
         steps {
             sh '''
-            IMAGE="mnist-predictor:0.0.${BUILD_NUMBER}"
+            image="mnist-predictor:0.0.${BUILD_NUMBER}"
             cd ml_model
             aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
-            docker build -t ${IMAGE} .
-            docker tag ${IMAGE} ${REGISTRY_URL}/${IMAGE}
-            docker push ${REGISTRY_URL}/${IMAGE}
+            docker build -t ${image} .
+            docker tag ${IMAGE} ${REGISTRY_URL}/${image}
+            docker push ${REGISTRY_URL}/${image}
             '''
         }
     }
@@ -75,7 +75,7 @@ pipeline {
             sh '''
             cd infra/k8s
             img_p_name=mnist-predictor:0.0.${BUILD_NUMBER}
-            R_URL="352708296901.dkr.ecr.us-west-2.amazonaws.com"
+
             # replace registry url and image name placeholders in yaml
             sed  "s/{{REGISTRY_URL}}/$R_URL/g" mnist-predictor.yaml
             sed  "s/{{K8S_NAMESPACE}}/$K8S_NAMESPACE/g" mnist-predictor.yaml
