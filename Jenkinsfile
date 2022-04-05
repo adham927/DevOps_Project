@@ -47,6 +47,7 @@ pipeline {
             docker build -t ${IMAGE} .
             docker tag ${IMAGE} ${REGISTRY_URL}/${IMAGE}
             docker push ${REGISTRY_URL}/${IMAGE}
+            set +e
             '''
         }
     }
