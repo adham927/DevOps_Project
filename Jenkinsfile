@@ -85,6 +85,7 @@ pipeline {
 
             # apply to your namespace
             kubectl apply -f mnist-webservice.yaml -n $K8S_NAMESPACE
+
             '''
         }
     }
