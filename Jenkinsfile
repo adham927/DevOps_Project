@@ -38,7 +38,19 @@ pipeline {
         when { branch "master" }
         steps {
             sh '''
+            cd webserver
+            image_web = mnist-webserver:0.0.${BUILD_NUMBER}
 
+            # replace registry url and image name placeholders in yaml
+            sed -i "s/{{REGISTRY_URL}}/$REGISTRY_URL/g" mnist-predictor.yaml
+            sed -i "s/{{K8S_NAMESPACE}}/$K8S_NAMESPACE/g" mnist-predictor.yaml
+            sed -i "s/{{IMG_NAME}}/$image_web/g" mnist-predictor.yaml
+
+            # get kubeconfig creds
+            aws eks --region ${K8S_CLUSTER_REGION} update-kubeconfig --name ${K8S_CLUSTER_NAME}
+
+            # apply to your namespace
+            kubectl apply -f mnist-predictor.yaml -n $K8S_NAMESPACE
             '''
         }
     }
