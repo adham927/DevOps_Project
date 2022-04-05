@@ -22,7 +22,12 @@ pipeline {
       when { branch "master" }
       steps {
           sh '''
-
+          IMAGE-WEB="mnist-webserver:0.0.${BUILD_NUMBER}"
+          cd webserver
+          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
+          docker build -t ${IMAGE-WEB} .
+          docker tag ${IMAGE-WEB} ${REGISTRY_URL}/${IMAGE-WEB}
+          docker push ${REGISTRY_URL}/${IMAGE-WEB}
           '''
       }
     }
@@ -31,12 +36,7 @@ pipeline {
         when { branch "master" }
         steps {
             sh '''
-            IMAGE-WEB="mnist-webserver:0.0.${BUILD_NUMBER}"
-            cd webserver
-            aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
-            docker build -t ${IMAGE-WEB} .
-            docker tag ${IMAGE-WEB} ${REGISTRY_URL}/${IMAGE-WEB}
-            docker push ${REGISTRY_URL}/${IMAGE-WEB}
+
             '''
         }
     }
