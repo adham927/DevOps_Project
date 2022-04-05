@@ -20,6 +20,41 @@ pipeline {
       }
     }
 
+    stage('MNIST Predictor - build'){
+        when { branch "master" }
+        steps {
+            sh '''
+            image="mnist-predictor:0.0.${BUILD_NUMBER}"
+            cd ml_model
+            aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
+            docker build -t ${image} .
+            docker tag ${image} ${REGISTRY_URL}/${image}
+            docker push ${REGISTRY_URL}/${image}
+            '''
+        }
+    }
+
+    stage('MNIST Predictor - deploy'){
+        when { branch "master" }
+        steps {
+            sh '''
+            cd infra/k8s
+            img_p_name=mnist-predictor:0.0.${BUILD_NUMBER}
+
+            # replace registry url and image name placeholders in yaml
+            sed -i "s/{{REGISTRY_URL}}/$R_URL/g" mnist-predictor.yaml
+            sed -i  "s/{{K8S_NAMESPACE}}/$K8S_NAMESPACE/g" mnist-predictor.yaml
+            sed -i  "s/{{IMG_NAME}}/$img_p_name/g" mnist-predictor.yaml
+
+            # get kubeconfig creds
+            aws eks --region ${K8S_CLUSTER_REGION} update-kubeconfig --name ${K8S_CLUSTER_NAME}
+
+            # apply to your namespace
+            kubectl apply -f mnist-predictor.yaml -n $K8S_NAMESPACE
+            '''
+        }
+    }
+
     stage('MNIST Web Server - build'){
       when { branch "master" }
       steps {
@@ -55,39 +90,7 @@ pipeline {
     }
 
 
-    stage('MNIST Predictor - build'){
-        when { branch "master" }
-        steps {
-            sh '''
-            image="mnist-predictor:0.0.${BUILD_NUMBER}"
-            cd ml_model
-            aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${REGISTRY_URL}
-            docker build -t ${image} .
-            docker tag ${image} ${REGISTRY_URL}/${image}
-            docker push ${REGISTRY_URL}/${image}
-            '''
-        }
-    }
 
-    stage('MNIST Predictor - deploy'){
-        when { branch "master" }
-        steps {
-            sh '''
-            cd infra/k8s
-            img_p_name=mnist-predictor:0.0.${BUILD_NUMBER}
-
-            # replace registry url and image name placeholders in yaml
-
-            sed -i  "s/{{IMG_NAME}}/$img_p_name/g" mnist-predictor.yaml
-
-            # get kubeconfig creds
-            aws eks --region ${K8S_CLUSTER_REGION} update-kubeconfig --name ${K8S_CLUSTER_NAME}
-
-            # apply to your namespace
-            kubectl apply -f mnist-predictor.yaml -n $K8S_NAMESPACE
-            '''
-        }
-    }
   }
 }
 
