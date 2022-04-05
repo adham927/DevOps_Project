@@ -39,7 +39,7 @@ pipeline {
         steps {
             sh '''
             cd infra/k8s
-            image_web_name= "mnist-webserver:0.0.${BUILD_NUMBER}"
+            image_web_name = mnist-webserver:0.0.${BUILD_NUMBER}
             # replace registry url and image name placeholders in yaml
             sed -i "s/{{REGISTRY_URL}}/$REGISTRY_URL/g" mnist-predictor.yaml
             sed -i "s/{{K8S_NAMESPACE}}/$K8S_NAMESPACE/g" mnist-predictor.yaml
