@@ -15,6 +15,8 @@ def hello_world():
     prediction = requests.get(f'http://mnist-predictor-service:8080/predict', data=data)
 
 
+
+
     return prediction.json()
 
 
