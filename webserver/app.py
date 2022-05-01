@@ -16,7 +16,6 @@ def hello_world():
 
 
 
-
     return prediction.json()
 
 

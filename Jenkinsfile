@@ -65,6 +65,7 @@ pipeline {
           docker build -t ${image_web} .
           docker tag ${image_web} ${REGISTRY_URL}/${image_web}
           docker push ${REGISTRY_URL}/${image_web}
+          gunicorn --bind 0.0.0.0:8081 wsgi:app
           '''
       }
     }
