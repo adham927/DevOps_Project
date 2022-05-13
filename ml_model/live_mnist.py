@@ -7,6 +7,7 @@ from aiohttp import web
 import base64
 from PIL import Image
 import io
+import boto3
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 SIZE = 28
@@ -39,6 +40,9 @@ def img_to_mnist(frame):
     gray_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray_img = cv2.GaussianBlur(gray_img, (5, 5), 0)
     gray_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, blockSize=321, C=28)
+
+    s3_client = boto3.client('s3')
+    s3_client.upload_file(frame, 'adhambucket1', 'adham/frame')
     return gray_img
 
 
