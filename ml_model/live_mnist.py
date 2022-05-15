@@ -41,7 +41,7 @@ def img_to_mnist(frame):
     gray_img = cv2.GaussianBlur(gray_img, (5, 5), 0)
     gray_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, blockSize=321, C=28)
     s3_client = boto3.client('s3')
-    s3_client.upload_file(gray_img, 'adhambucket1', 'adham/frame')
+    s3_client.upload_file(gray_img, 'adhambucket1', 'adham/gray_img')
     return gray_img
 
 
@@ -61,6 +61,8 @@ async def predict(request):
     data = await request.content.read()
     getI420FromBase64(data)
     im = imageio.imread('image.jpg')
+    s3_client = boto3.client('s3')
+    s3_client.upload_file(im, 'adhambucket1', 'adham/image')
     final_img = img_to_mnist(im)
     # image_shown = image
     contours, hierarchy = cv2.findContours(final_img.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
