@@ -1,5 +1,5 @@
-import requests
-from flask import Flask, send_file, request, render_template
++mport requests
+rom flask import Flask, send_file, request, render_template
 
 app = Flask(__name__, static_url_path='')
 
@@ -12,7 +12,7 @@ def home():
 @app.route("/upload", methods=['POST'])
 def hello_world():
     data = request.data
-    prediction = requests.get(f'http://mnist-predictor-service:8080/predict', data=data)
+    prediction = requests.get(f'http://mnist-predictor-service:8080/predict', data=data)/
 
     return prediction.json()
 
