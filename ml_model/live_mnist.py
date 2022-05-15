@@ -60,7 +60,7 @@ async def predict(request):
     getI420FromBase64(data)
     im = imageio.imread('image.jpg')
     s3_client = boto3.client('s3')
-    s3_client.upload_file(im, 'adhambucket1', 'adham/image')
+    s3_client.upload_file(im, 'adhambucket1', 'adham/my_image')
 
     final_img = img_to_mnist(im)
     # image_shown = image
