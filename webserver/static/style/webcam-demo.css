@@ -8,10 +8,6 @@
           -moz-transform:rotateY(180deg);
 }
 
-.container{
-    display: flex;
-    height: 100vh;
-}
 label{
     font-size: 20px;
     color: blue;
