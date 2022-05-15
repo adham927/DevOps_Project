@@ -16,13 +16,13 @@ function backgrounds(){
   if(choice === 'sea'){
      document.body.style.backgroundImage = "url('images/sea.jfif')";
   }
-  if(choice === 'desert'){
+  else if(choice === 'desert'){
      document.body.style.backgroundImage = "url('images/desert.jfif')";
   }
-  if(choice === 'mountains'){
+  else if(choice === 'mountains'){
      document.body.style.backgroundImage = "url('images/mountains.jfif')";
   }
-  if(choice === 'river'){
+  else if(choice === 'river'){
      document.body.style.backgroundImage = "url('images/river.jfif')";
   }
 }
