@@ -15,6 +15,7 @@ function backgrounds(){
   var choice = select.value;
   if(choice === 'sea'){
      document.body.style.backgroundImage = "url('images/sea.jfif')";
+
   }
 }
 $("#webcam-switch").change(function () {
