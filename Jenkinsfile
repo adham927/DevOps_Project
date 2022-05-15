@@ -46,6 +46,7 @@ pipeline {
             sed -i  "s/{{K8S_NAMESPACE}}/$K8S_NAMESPACE/g" mnist-predictor.yaml
             sed -i  "s/{{IMG_NAME}}/$img_p_name/g" mnist-predictor.yaml
 
+
             # get kubeconfig creds
             aws eks --region ${K8S_CLUSTER_REGION} update-kubeconfig --name ${K8S_CLUSTER_NAME}
 
