@@ -15,6 +15,7 @@ function backgrounds(){
   var choice = select.value;
   if(choice === 'sea'){
      html.style.backgroundColor= "red";
+
   }
 }
 $("#webcam-switch").change(function () {
