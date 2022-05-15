@@ -14,7 +14,7 @@ select.addEventListener('change', backgrounds);
 function backgrounds(){
   var choice = select.value;
   if(choice === 'sea'){
-     document.body.style.backgroundColor= "images/sea.jfif";
+     document.body.style.backgroundImage = "url('images/sea.jfif')";
 
   }
 }
