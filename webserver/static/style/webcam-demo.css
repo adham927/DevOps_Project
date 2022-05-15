@@ -26,7 +26,7 @@ label{
  }
 
 .form-control.webcam-start{
-    position: relative;
+    position: center;
     background: black;
     opacity: 0.8;
     padding: 10px 20px;
@@ -41,7 +41,6 @@ label{
     left: 0;
     right: 0;
     margin: auto;
-    align: center;
 }
 
 .form-control.webcam-on {
