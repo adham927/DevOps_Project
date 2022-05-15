@@ -8,6 +8,8 @@ const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement
 
 var select = document.querySelector('select');
 var html = document.querySelector('body');
+document.body.style.backgroundRepeat = 'no-repeat';
+document.body.style.backgroundSize = 'cover';
 
 select.addEventListener('change', backgrounds);
 
