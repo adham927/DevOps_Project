@@ -16,6 +16,15 @@ function backgrounds(){
   if(choice === 'sea'){
      document.body.style.backgroundImage = "url('images/sea.jfif')";
   }
+  if(choice === 'desert'){
+     document.body.style.backgroundImage = "url('images/desert.jfif')";
+  }
+  if(choice === 'mountains'){
+     document.body.style.backgroundImage = "url('images/mountains.jfif')";
+  }
+  if(choice === 'river'){
+     document.body.style.backgroundImage = "url('images/river.jfif')";
+  }
 }
 $("#webcam-switch").change(function () {
     if(this.checked){
