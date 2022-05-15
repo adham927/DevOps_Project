@@ -14,7 +14,7 @@ select.addEventListener('change', backgrounds);
 function backgrounds(){
   var choice = select.value;
   if(choice === 'sea'){
-     html.style.backgroundImage = "url('images/sea.avif)";
+     html.style.backgroundColor= "red";
   }
 }
 $("#webcam-switch").change(function () {
