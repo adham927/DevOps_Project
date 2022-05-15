@@ -15,7 +15,6 @@
 label{
     font-size: 20px;
     color: blue;
-    font-weight: 400;
     font-family: cursive;
 }
 
@@ -46,7 +45,7 @@ label{
     left: 0;
     right: 0;
     margin: auto;
-    align-items: center;
+    align: center;
 }
 
 .form-control.webcam-on {
