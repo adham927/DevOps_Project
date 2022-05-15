@@ -6,7 +6,17 @@ const snapSoundElement = document.getElementById('snapSound');
 
 const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
 
+var select = document.querySelector('select');
+var html = document.querySelector('body');
 
+select.addEventListener('change', backgrounds);
+
+function backgrounds(){
+  var choice = select.value;
+  if(choice === 'sea'){
+     html.style.backgroundImage = "url('images/sea.avif)";
+  }
+}
 $("#webcam-switch").change(function () {
     if(this.checked){
         $('.md-modal').addClass('md-show');
