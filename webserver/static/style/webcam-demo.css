@@ -8,6 +8,10 @@
           -moz-transform:rotateY(180deg);
 }
 
+body {
+  background-image: url('images/background.jpg');
+}
+
 label{
     font-size: 20px;
     color: blue;
