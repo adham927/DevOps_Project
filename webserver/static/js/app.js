@@ -6,28 +6,7 @@ const snapSoundElement = document.getElementById('snapSound');
 
 const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
 
-var select = document.querySelector('select');
-var html = document.querySelector('body');
-document.body.style.backgroundRepeat = 'no-repeat';
-document.body.style.backgroundSize = 'cover';
 
-select.addEventListener('change', backgrounds);
-
-function backgrounds(){
-  var choice = select.value;
-  if(choice === 'sea'){
-     document.body.style.backgroundImage = "url('images/sea.jfif')";
-  }
-  else if(choice === 'desert'){
-     document.body.style.backgroundImage = "url('images/desert.jfif')";
-  }
-  else if(choice === 'mountains'){
-     document.body.style.backgroundImage = "url('images/mountains.jfif')";
-  }
-  else if(choice === 'river'){
-     document.body.style.backgroundImage = "url('images/river.jfif')";
-  }
-}
 $("#webcam-switch").change(function () {
     if(this.checked){
         $('.md-modal').addClass('md-show');
