@@ -7,7 +7,6 @@ from aiohttp import web
 import base64
 from PIL import Image
 import io
-import boto3
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 SIZE = 28
@@ -58,9 +57,6 @@ async def predict(request):
     data = await request.content.read()
     getI420FromBase64(data)
     im = imageio.imread('image.jpg')
-    s3_client = boto3.client('s3')
-    s3_client.upload_file(im, 'adhambucket1', 'adham/my_image')
-
     final_img = img_to_mnist(im)
     # image_shown = image
     contours, hierarchy = cv2.findContours(final_img.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
