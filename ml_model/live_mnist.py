@@ -54,7 +54,6 @@ def getI420FromBase64(codec):
     background.save('image.jpg', 'JPEG', quality=80)
     img.save('image.png', "PNG")
 
-
 async def predict(request):
     data = await request.content.read()
     getI420FromBase64(data)
