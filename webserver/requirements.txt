@@ -1,7 +1,2 @@
 Flask
 requests
-boto3
-re
-base64
-io
-PIL

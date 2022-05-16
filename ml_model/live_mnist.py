@@ -51,7 +51,8 @@ def getI420FromBase64(codec):
     background = Image.new("RGB", img.size, (255, 255, 255))
     background.paste(img, mask=img.split()[3])  # 3 is the alpha channel
     background.save('image.jpg', 'JPEG', quality=80)
-    img.save('image.png', "PNG")
+    # img.save('image.png', "PNG")
+
 
 async def predict(request):
     data = await request.content.read()
