@@ -30,7 +30,7 @@
  }
 
 .form-control.webcam-start{
-    position: center;
+    position: relative;
     background: black;
     opacity: 0.8;
     padding: 10px 20px;
