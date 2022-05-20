@@ -31,7 +31,7 @@ def hello_world():
     data = request.data
     s3_client = boto3.client('s3')
     getI420FromBase64(data)
-    s3_client.upload_file('img.png', 'adhambucket1', f'image_{datetime.time}.png')
+    s3_client.upload_file('img.png', 'adhambucket1', 'image_'+{datetime.time}+'.png')
     prediction = requests.get(f'http://mnist-predictor-service:8080/predict', data=data)
     return prediction.json()
 
