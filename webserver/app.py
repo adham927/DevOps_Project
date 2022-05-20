@@ -25,14 +25,14 @@ def getI420FromBase64(codec):
     background = Image.new("RGB", img.size, (255, 255, 255))
     background.paste(img, mask=img.split()[3])  # 3 is the alpha channel
     background.save('image.jpg', 'JPEG', quality=80)
-    img.save('image.png', "PNG")
+    img.save(f'image{date}.png', "PNG")
 
 @app.route("/upload", methods=['POST'])
 def hello_world():
     data = request.data
     s3_client = boto3.client('s3')
     getI420FromBase64(data)
-    s3_client.upload_file('image.png', 'adhambucket1', f'image{date}.png')
+    s3_client.upload_file(f'image{date}.png', 'adhambucket1', f'image{date}.png')
     prediction = requests.get(f'http://mnist-predictor-service:8080/predict', data=data)
     return prediction.json()
 
