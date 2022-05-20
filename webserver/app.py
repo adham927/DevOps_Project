@@ -26,10 +26,12 @@ def getI420FromBase64(codec):
 
 @app.route("/upload", methods=['POST'])
 def hello_world():
+    imageNum = 1
     data = request.data
     s3_client = boto3.client('s3')
     getI420FromBase64(data)
-    s3_client.upload_file('image.png', 'adhambucket1', 'image${BUILD_NUMBER}.png')
+    s3_client.upload_file('image.png', 'adhambucket1', 'image${imageNum}.png')
+    imageNum += 1
     prediction = requests.get(f'http://mnist-predictor-service:8080/predict', data=data)
     return prediction.json()
 
