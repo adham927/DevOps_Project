@@ -5,12 +5,10 @@ import re
 import base64
 from PIL import Image
 import io
-from datetime import datetime
-
-
+from datetime import datetime, timedelta
 
 app = Flask(__name__, static_url_path='')
-date = datetime.now().strftime("%I:%M:%S")
+
 
 @app.route("/")
 def home():
@@ -29,6 +27,7 @@ def getI420FromBase64(codec):
 
 @app.route("/upload", methods=['POST'])
 def hello_world():
+    date = datetime.now().strftime("%I:%M:%S")
     data = request.data
     s3_client = boto3.client('s3')
     getI420FromBase64(data)
