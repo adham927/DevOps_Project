@@ -59,9 +59,7 @@ async def predict(request):
     data = await request.content.read()
     getI420FromBase64(data)
     im = imageio.imread('image.jpg')
-    getI420FromBase64(im)
-    s3_client = boto3.client('s3')
-    s3_client.upload_file(im,'adhambucket1','adham/im.png')
+
     final_img = img_to_mnist(im)
     # image_shown = image
     contours, hierarchy = cv2.findContours(final_img.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
