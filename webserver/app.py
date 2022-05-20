@@ -15,6 +15,7 @@ def home():
     return render_template('index.html')
 
 def getI420FromBase64(codec):
+    date = datetime.now().strftime("%I:%M:%S")
     base64_data = re.sub('^data:image/.+;base64,', '', codec.decode())
     byte_data = base64.b64decode(base64_data)
     image_data = io.BytesIO(byte_data)
@@ -23,7 +24,7 @@ def getI420FromBase64(codec):
     background = Image.new("RGB", img.size, (255, 255, 255))
     background.paste(img, mask=img.split()[3])  # 3 is the alpha channel
     background.save('image.jpg', 'JPEG', quality=80)
-    img.save('image.png', "PNG")
+    img.save(f'image{date}.png', "PNG")
 
 @app.route("/upload", methods=['POST'])
 def hello_world():
