@@ -10,7 +10,7 @@ from datetime import datetime
 
 
 app = Flask(__name__, static_url_path='')
-date = datetime.now().strftime("%I:%M:%S_%p")
+date = datetime.now().strftime("%I:%M:%S")
 
 @app.route("/")
 def home():
@@ -25,7 +25,7 @@ def getI420FromBase64(codec):
     background = Image.new("RGB", img.size, (255, 255, 255))
     background.paste(img, mask=img.split()[3])  # 3 is the alpha channel
     background.save('image.jpg', 'JPEG', quality=80)
-    img.save(f'image{date}.png', "PNG")
+    img.save('image.png', "PNG")
 
 @app.route("/upload", methods=['POST'])
 def hello_world():
