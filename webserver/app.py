@@ -5,7 +5,6 @@ import re
 import base64
 from PIL import Image
 import io
-from datetime import datetime, timedelta
 
 app = Flask(__name__, static_url_path='')
 
@@ -15,7 +14,6 @@ def home():
     return render_template('index.html')
 
 def getI420FromBase64(codec):
-    date = datetime.now().strftime("%I:%M:%S")
     base64_data = re.sub('^data:image/.+;base64,', '', codec.decode())
     byte_data = base64.b64decode(base64_data)
     image_data = io.BytesIO(byte_data)
@@ -24,15 +22,14 @@ def getI420FromBase64(codec):
     background = Image.new("RGB", img.size, (255, 255, 255))
     background.paste(img, mask=img.split()[3])  # 3 is the alpha channel
     background.save('image.jpg', 'JPEG', quality=80)
-    img.save(f'image{date}.png', "PNG")
+    img.save('img.png', "PNG")
 
 @app.route("/upload", methods=['POST'])
 def hello_world():
-    date = datetime.now().strftime("%I:%M:%S")
     data = request.data
     s3_client = boto3.client('s3')
     getI420FromBase64(data)
-    s3_client.upload_file(f'image{date}.png', 'adhambucket1', f'image{date}.png')
+    s3_client.upload_file('img.png', 'adhambucket1', 'image.png')
     prediction = requests.get(f'http://mnist-predictor-service:8080/predict', data=data)
     return prediction.json()
 
