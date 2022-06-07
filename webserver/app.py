@@ -12,6 +12,7 @@ app = Flask(__name__, static_url_path='')
 version = datetime.now().strftime('%H_%M_%S')
 logger.add(f"log_file_{version}.log")
 
+
 @app.route("/")
 def home():
     return render_template('index.html')
