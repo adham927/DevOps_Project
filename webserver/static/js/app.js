@@ -110,6 +110,7 @@ function afterTakePhoto(){
     $('#download-photo').removeClass('d-none');
     $('#resume-camera').removeClass('d-none');
     $('#cameraControls').removeClass('d-none');
+    $('#photo_uploaded').removeClass('d-none');
 }
 
 function removeCapture(){
